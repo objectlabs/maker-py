@@ -97,10 +97,20 @@ class ObjectCollection:
     @robustify(max_attempts=5, retry_interval=2,
                do_on_exception=_raise_if_not_autoreconnect,
                do_on_failure=_raise_on_failure)
-    def find_and_modify(self, query=None, update=None, sort=None):
+    def find_and_modify(self, query=None, update=None, sort=None, **kwargs):
         result = self.collection.find_and_modify(query=query, update=update,
-                                                 sort=sort)
+                                                 sort=sort, **kwargs)
         return self.make_obj(result)
+
+    ###########################################################################
+    @robustify(max_attempts=5, retry_interval=2,
+               do_on_exception=_raise_if_not_autoreconnect,
+               do_on_failure=_raise_on_failure)
+    def update(self, spec, document, upsert=False, manipulate=False,
+                     safe=None, multi=False, check_keys=True, **kwargs):
+        self.collection.update(spec=spec, document=document, upsert=upsert,
+                               manipulate=manipulate, safe=safe, multi=multi,
+                               check_keys=check_keys, **kwargs)
 
     ###########################################################################
     @robustify(max_attempts=5, retry_interval=2,
