@@ -1,10 +1,7 @@
 import sys
 import types
 import inspect
-import string
-import random
-import pyDes
-import base64
+
 from time import sleep, time as now
 
 ################################################################################
