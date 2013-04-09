@@ -10,7 +10,7 @@ from bson import DBRef
 
 ###############################################################################
 logger = logging.getLogger(__name__)
-#logger.addHandler(logging.NullHandler())
+logger.addHandler(logging.NullHandler())
 
 ###############################################################################
 # HELPERS
