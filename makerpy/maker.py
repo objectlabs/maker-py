@@ -1,6 +1,7 @@
 import inspect
 import json
 import re
+import traceback
 
 from bson import json_util, ObjectId
 from datetime import datetime, date
@@ -120,11 +121,17 @@ class Maker():
         return obj_type()
 
     ###########################################################################
-    def _set_object_property(self, obj, property, value):
-        if isinstance(obj, dict):
-            obj[property] = value
-        else:
-            setattr(obj, property, value)
+    def _set_object_property(self, obj, prop, value):
+        try:
+            if isinstance(obj, dict):
+                obj[prop] = value
+            else:
+                setattr(obj, prop, value)
+        except Exception, e:
+            msg = ("Error while trying to set property %s for object %s."
+                   " Cause: %s, Trace: %s" % (prop, obj, e,
+                                              traceback.format_exc()))
+            raise Exception(msg)
 
     ###########################################################################
     def resolve_type(self, type_name):
