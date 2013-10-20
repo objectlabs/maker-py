@@ -37,6 +37,6 @@ setup(
     url='https://github.com/mongolab/makerpy',
     license='MIT',
     install_requires=[
-        'pymongo==2.4.1',
+        'pymongo>=2.4.2',
     ]
 )
