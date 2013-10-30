@@ -148,11 +148,20 @@ class Maker():
         ELSE: return property as is
         """
         # TODO use a mapping
-        uncameled_prop  = un_camelcase(datum_prop_name)
-        if hasattr(obj, uncameled_prop) and not hasattr(obj, datum_prop_name):
-            return uncameled_prop
-        else:
-            return datum_prop_name
+        try:
+            datum_prop_name = datum_prop_name.encode('ascii', 'ignore')
+            uncameled_prop = un_camelcase(datum_prop_name)
+            if (hasattr(obj, uncameled_prop) and
+                    not hasattr(obj, datum_prop_name)):
+                return uncameled_prop
+            else:
+                return datum_prop_name
+        except Exception, e:
+            msg = ("Error while trying to resolve property name '%s' for "
+                   "object %s."
+                   " Cause: %s, Trace: %s" % (datum_prop_name, obj, e,
+                                              traceback.format_exc()))
+            raise Exception(msg)
 
 ###############################################################################
 def un_camelcase(property_name):
