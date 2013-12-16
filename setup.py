@@ -24,7 +24,7 @@
 from setuptools import setup
 
 setup(
-    name='maker-py',
+    name='makerpy',
     version='0.1.3',
     author='MongoLab Team',
     author_email='team@mongolab.com',
@@ -34,7 +34,7 @@ setup(
         'makerpy',
         'robustify'
     ],
-    url='https://github.com/mongolab/makerpy',
+    url='https://github.com/mongolab/maker-py',
     license='MIT',
     install_requires=[
         'pymongo>=2.4.2',
