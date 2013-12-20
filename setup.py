@@ -25,7 +25,7 @@ from setuptools import setup
 
 setup(
     name='makerpy',
-    version='0.1.3',
+    version='0.1.4',
     author='MongoLab Team',
     author_email='team@mongolab.com',
     description='maker for python',
