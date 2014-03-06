@@ -30,7 +30,7 @@ def _raise_on_failure():
 ###############################################################################
 # ObjectCollection
 ###############################################################################
-class ObjectCollection:
+class ObjectCollection(object):
 
     ###########################################################################
     def __init__(self, collection, clazz=None, type_bindings=None):

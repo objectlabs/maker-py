@@ -141,7 +141,7 @@ def _logger_for_sure(a_logger_maybe):
             return a_logger_maybe
     return NoOpLogger()
 
-class NoOpLogger:
+class NoOpLogger(object):
     def error(*_, **__):
         pass
     def warn(*_, **__):

@@ -3,7 +3,7 @@ __author__ = 'abdul'
 
 from maker import o
 ####################################
-class Person():
+class Person(object):
     first_name = None
     last_name = None
 ####################################
