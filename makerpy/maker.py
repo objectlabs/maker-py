@@ -60,13 +60,19 @@ class Maker(object):
             return self._make_list(datum)
 
         # mappings
-        mapping_attrs = {'__iter__', '__getitem__', '__contains__', 'keys',
-                         'items', 'values', 'get', '__eq__', '__ne__'}
-        if mapping_attrs.issubset(set(dir(datum))):
+        if self._is_mappable_datum(datum):
             return self._make_object(datum)
 
         return datum
 
+    ###########################################################################
+    def _is_mappable_datum(self, datum):
+        # mappings
+        mapping_attrs = {'__iter__', '__getitem__', '__contains__', 'keys',
+                         'items', 'values', 'get', '__eq__', '__ne__'}
+        desc_resolver = self.object_descriptor_resolver
+        return (mapping_attrs.issubset(set(dir(datum))) or
+                (desc_resolver and desc_resolver.is_datum_descriptor(datum)))
 
     ###########################################################################
     def _make_list(self, datum):
