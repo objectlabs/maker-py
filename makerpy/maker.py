@@ -53,10 +53,7 @@ class Maker(object):
     ###########################################################################
     def make(self, datum):
 
-        # sequences
-        sequence_attrs = {'__getitem__', '__contains__', '__iter__',
-                          '__reversed__', 'index', 'count'}
-        if sequence_attrs.issubset(set(dir(datum))):
+        if self._is_sequence(datum):
             return self._make_list(datum)
 
         # mappings
@@ -66,12 +63,13 @@ class Maker(object):
         return datum
 
     ###########################################################################
+    def _is_sequence(self, datum):
+        return isinstance(datum, list)
+
+    ###########################################################################
     def _is_mappable_datum(self, datum):
-        # mappings
-        mapping_attrs = {'__iter__', '__getitem__', '__contains__', 'keys',
-                         'items', 'values', 'get', '__eq__', '__ne__'}
         desc_resolver = self.object_descriptor_resolver
-        return (mapping_attrs.issubset(set(dir(datum))) or
+        return (isinstance(datum, dict) or
                 (desc_resolver and desc_resolver.is_datum_descriptor(datum)))
 
     ###########################################################################
@@ -162,6 +160,16 @@ class Maker(object):
                    " Cause: %s, Trace: %s" % (datum_prop_name, obj, e,
                                               traceback.format_exc()))
             raise Exception(msg)
+
+###############################################################################
+
+CC2US_RE = re.compile(r'(^|[a-z])([A-Z])')
+
+def _camel_replace(match):
+    return '_'.join([i.lower() for i in match.groups() if i])
+
+def XXXXXun_camelcase(s):
+    return CC2US_RE.sub(_camel_replace, s)
 
 ###############################################################################
 def un_camelcase(property_name):
