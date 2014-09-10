@@ -63,27 +63,24 @@ class ObjectCollection(object):
     @robustify(max_attempts=5, retry_interval=2,
                do_on_exception=_raise_if_not_autoreconnect,
                do_on_failure=_raise_on_failure)
-    def find(self, query=None, sort=None, limit=None):
+    def find(self, query=None, **kwargs):
         if query is None or (query.__class__ == dict):
-            result = self.find_iter( query, sort, limit )
+            result = self.find_iter( query=query, **kwargs)
             # TODO: this is bad for large result sets potentially
             return [ d for d in result ]
         else:
-            return self.find_one({ "_id" : query }, sort=sort)
+            return self.find_one({"_id": query}, **kwargs)
 
     ###########################################################################
-    def find_iter(self, query=None, sort=None, limit=None):
+    def find_iter(self, query=None, **kwargs):
         if query is None or (query.__class__ == dict):
-            if limit is None:
-                documents = self.collection.find(query, sort=sort)
-            else:
-                documents = self.collection.find(query, sort=sort, limit=limit)
+            documents = self.collection.find(query, **kwargs)
 
             for doc in documents:
-                yield self.make_obj( doc )
+                yield self.make_obj(doc)
         else:
             # assume query is _id and do _id lookup
-            yield self.find_one({ "_id" : query }, sort=sort)
+            yield self.find_one({"_id": query}, **kwargs)
 
     ###########################################################################
     @robustify(max_attempts=5, retry_interval=2,
