@@ -82,6 +82,8 @@ class Maker(object):
         desc_resolver = self.object_descriptor_resolver
         if desc_resolver and desc_resolver.is_datum_descriptor(datum):
             datum = desc_resolver.resolve_datum_descriptor(datum)
+            if datum is None:
+                return None
 
         # instantiate object
         result = self.instantiate(datum)
