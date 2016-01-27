@@ -165,26 +165,13 @@ class Maker(object):
 
 ###############################################################################
 
-CC2US_RE = re.compile(r'(^|[a-z])([A-Z])')
-
-def _camel_replace(match):
-    return '_'.join([i.lower() for i in match.groups() if i])
-
-def XXXXXun_camelcase(s):
-    return CC2US_RE.sub(_camel_replace, s)
-
-###############################################################################
-def Xun_camelcase(property_name):
-    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', property_name)
-    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
-
 UPPER_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-#UPPER_LETTERS_DICT = {key: key for key in UPPER_LETTERS}
-PROPERTY_MAPPING = {}
+
+CAMEL_PROPERTY_MAPPING = {}
 
 def un_camelcase(property_name):
-    if property_name in PROPERTY_MAPPING:
-        return PROPERTY_MAPPING[property_name]
+    if property_name in CAMEL_PROPERTY_MAPPING:
+        return CAMEL_PROPERTY_MAPPING[property_name]
 
     result = []
     for c in property_name:
@@ -195,7 +182,8 @@ def un_camelcase(property_name):
             result.append(c.lower())
 
     val = ''.join(result)
-    PROPERTY_MAPPING[property_name] = val
+    CAMEL_PROPERTY_MAPPING[property_name] = val
+
     return val
 
 ###############################################################################
