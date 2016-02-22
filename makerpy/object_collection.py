@@ -65,16 +65,16 @@ class ObjectCollection(object):
                do_on_failure=_raise_on_failure)
     def find(self, query=None, **kwargs):
         if query is None or (query.__class__ == dict):
-            result = self.find_iter( query=query, **kwargs)
+            result = self.find_iter(query=query, **kwargs)
             # TODO: this is bad for large result sets potentially
-            return [ d for d in result ]
+            return [d for d in result ]
         else:
             return self.find_one({"_id": query}, **kwargs)
 
     ###########################################################################
     def find_iter(self, query=None, **kwargs):
         if query is None or (query.__class__ == dict):
-            documents = self.collection.find(query, **kwargs)
+            documents = self.collection.find(filter=query, **kwargs)
 
             for doc in documents:
                 yield self.make_obj(doc)
@@ -87,7 +87,7 @@ class ObjectCollection(object):
                do_on_exception=_raise_if_not_autoreconnect,
                do_on_failure=_raise_on_failure)
     def find_one(self, query=None, sort=None):
-        result = self.collection.find_one(query, sort=sort)
+        result = self.collection.find_one(filter=query, sort=sort)
         return self.make_obj( result )
 
     ###########################################################################
