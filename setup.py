@@ -36,7 +36,7 @@ setup(
     url='https://github.com/mongolab/maker-py',
     license='MIT',
     install_requires=[
-        'pymongo>=2.8,<3.0',
+        'pymongo==2.9.2',
         "robustify>=0.1.0"
     ],
     dependency_links=[
