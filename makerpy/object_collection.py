@@ -111,7 +111,7 @@ class ObjectCollection(object):
                do_on_exception=_raise_if_not_autoreconnect,
                do_on_failure=_raise_on_failure)
     def save_document(self, document):
-        self.collection.save(document)
+        self.collection.insert(document)
 
     ###########################################################################
     def make_obj( self, doc ):
