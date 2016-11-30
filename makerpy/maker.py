@@ -33,7 +33,7 @@ def resolve_class(kls):
             m = getattr(m, comp)
         return m
     except Exception, e:
-        raise MakerException("Cannot resolve class '%s'. Cause: %s" % (kls, e))
+        raise MakerException("Cannot resolve class '%s'. Cause: %s" % (kls, traceback.format_exc()))
 
 ###############################################################################
 
