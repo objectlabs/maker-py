@@ -104,7 +104,7 @@ class ObjectCollection(object):
                do_on_exception=_raise_if_not_autoreconnect,
                do_on_failure=_raise_on_failure)
     def update(self, spec, document, **kwargs):
-        self.collection.update(spec, document, **kwargs)
+        return self.collection.update(spec, document, **kwargs)
 
     ###########################################################################
     @robustify(max_attempts=5, retry_interval=2,
