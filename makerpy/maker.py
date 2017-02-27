@@ -20,6 +20,9 @@ class MakerException(Exception):
     def __str__(self):
         return self.message
 
+    def __reduce__(self):
+        return (self.__class__, (self.message, self.cause))
+
 ###############################################################################
 def resolve_class(kls):
     if kls == "dict":
