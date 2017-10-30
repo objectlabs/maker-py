@@ -1,0 +1,1 @@
+-e git+ssh://git@github.com/objectlabs/robustify.git@0.1.0#egg=robustify-0.1.0
